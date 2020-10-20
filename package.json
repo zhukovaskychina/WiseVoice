@@ -90,7 +90,7 @@
     "umi": "^3.2.14",
     "umi-request": "^1.0.8",
     "use-merge-value": "^1.0.1",
-    "recorderjs":"1.0.1"
+    "recorderjs": "1.0.1"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^1.0.18",
