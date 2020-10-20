@@ -210,5 +210,20 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript" src="https://localhost:9000/socket.io.js"></script>
+
+    <script type="text/javascript">
+    window.onload = function init() {
+      try {
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+        window.URL = window.URL || window.webkitURL;
+
+      } catch (e) {
+        alert('No web audio support in this browser!');
+      }
+    };
+
+  </script>
   </body>
 </html>

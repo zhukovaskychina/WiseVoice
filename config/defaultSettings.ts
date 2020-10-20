@@ -5,20 +5,21 @@ type DefaultSettings = ProSettings & {
 };
 
 const proSettings: DefaultSettings = {
-  navTheme: 'dark',
-  // 拂晓蓝
-  primaryColor: '#1890ff',
-  layout: 'side',
-  contentWidth: 'Fluid',
-  fixedHeader: false,
-  fixSiderbar: true,
-  colorWeak: false,
-  menu: {
-    locale: true,
+
+  "navTheme": "light",
+  "primaryColor": "#1890ff",
+  "layout": "top",
+  "contentWidth": "Fluid",
+  "fixedHeader": true,
+  "fixSiderbar": false,
+  "menu": {
+  "locale": true
   },
-  title: 'Ant Design Pro',
-  pwa: false,
-  iconfontUrl: '',
+  "title": "语音识别",
+  "pwa": false,
+  "iconfontUrl": "",
+  "splitMenus": false,
+  "headerRender": false
 };
 
 export type { DefaultSettings };
