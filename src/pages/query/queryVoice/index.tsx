@@ -81,9 +81,6 @@ class Monitor extends Component<VoiceMonitorProps> {
   };
 
   componentWillMount() {
-    const self = this;
-
-    this.socket = new WebSocket("wss://localhost:9000/websocket" );
 
   };
   onSearch=(value:string)=>{
@@ -245,7 +242,10 @@ class Monitor extends Component<VoiceMonitorProps> {
     this.globalValue=-1;
     let that=this;
 
-    this.isEven=0;
+
+    that.socket = new WebSocket("wss://localhost:9000/websocket" );
+
+    that.isEven=0;
   }
   render() {
     const { dashboardVoice, loading } = this.props;
