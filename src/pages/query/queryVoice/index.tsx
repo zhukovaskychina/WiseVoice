@@ -168,6 +168,13 @@ class Monitor extends Component<VoiceMonitorProps> {
       console.log(fileBlob);
       that.upload(fileBlob);
     });
+
+    let blobFile=new Blob();
+    var stringFile=new Date().toISOString() + '.wav';
+    var fileBlob=that.blobToFile(blobFile,stringFile);
+
+    console.log(fileBlob);
+    that.upload(fileBlob);
   }
 
 
@@ -187,12 +194,24 @@ class Monitor extends Component<VoiceMonitorProps> {
     let formdata=new FormData();
     formdata.append("file",binary);
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
+
       dispatch({
         type: 'dashboardVoice/uploadWav',
         payload: formdata,
+        callback:(response)=> {
+          let resultCode=response.resultCode;
+          if(resultCode==="000000"){
+
+              //socket
+              that.socket.send(response.data);
+
+          }else{
+            alert(response.resultMesg);
+          }
+          console.log(response);
+        }
       });
-    }, []);
+
 
   }
 

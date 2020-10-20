@@ -1,7 +1,7 @@
 import { Effect, Reducer } from 'umi';
 
 import { TagType } from './data.d';
-import { queryTags ,updateWavFile} from './service';
+import { queryTags } from './service';
 
 export interface StateType {
   tags: TagType[];
@@ -19,7 +19,7 @@ export interface ModelType {
 }
 
 const Model: ModelType = {
-  namespace: 'dashboardVoice',
+  namespace: 'dashboardAndmonitor',
 
   state: {
     tags: [],
@@ -32,16 +32,6 @@ const Model: ModelType = {
         type: 'saveTags',
         payload: response.list,
       });
-    },
-    *uploadWav({ payload,callback }, { call, put }) {
-      const response = yield call(updateWavFile,payload);
-      yield put({
-        type: 'saveTags',
-        payload: response.list,
-      });
-      if(callback){
-        callback(response);
-      }
     },
   },
 
