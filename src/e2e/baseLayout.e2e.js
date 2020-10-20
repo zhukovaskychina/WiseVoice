@@ -19,6 +19,12 @@ function formatter(routes, parentPath = '') {
   return uniq(result.filter((item) => !!item));
 }
 
+
+
+
+
+
+
 beforeEach(async () => {
   await page.goto(`${BASE_URL}`);
   await page.evaluate(() => {
