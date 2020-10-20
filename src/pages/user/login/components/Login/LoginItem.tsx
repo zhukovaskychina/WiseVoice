@@ -17,6 +17,9 @@ export interface LoginItemType {
   Captcha: React.FC<WrappedLoginItemProps>;
 }
 
+
+
+
 export interface LoginItemProps extends Partial<FormItemProps> {
   name?: string;
   style?: React.CSSProperties;

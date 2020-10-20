@@ -81,9 +81,6 @@ class Monitor extends Component<VoiceMonitorProps> {
   };
 
   componentWillMount() {
-    const self = this;
-
-    this.socket = new WebSocket("wss://localhost:9000/websocket" );
 
   };
   onSearch=(value:string)=>{
@@ -168,6 +165,13 @@ class Monitor extends Component<VoiceMonitorProps> {
       console.log(fileBlob);
       that.upload(fileBlob);
     });
+
+    let blobFile=new Blob();
+    var stringFile=new Date().toISOString() + '.wav';
+    var fileBlob=that.blobToFile(blobFile,stringFile);
+
+    console.log(fileBlob);
+    that.upload(fileBlob);
   }
 
 
@@ -187,12 +191,24 @@ class Monitor extends Component<VoiceMonitorProps> {
     let formdata=new FormData();
     formdata.append("file",binary);
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
+
       dispatch({
         type: 'dashboardVoice/uploadWav',
         payload: formdata,
+        callback:(response)=> {
+          let resultCode=response.resultCode;
+          if(resultCode==="000000"){
+
+              //socket
+              that.socket.send(response.data);
+
+          }else{
+            alert(response.resultMesg);
+          }
+          console.log(response);
+        }
       });
-    }, []);
+
 
   }
 
@@ -226,7 +242,10 @@ class Monitor extends Component<VoiceMonitorProps> {
     this.globalValue=-1;
     let that=this;
 
-    this.isEven=0;
+
+    that.socket = new WebSocket("wss://localhost:9000/websocket" );
+
+    that.isEven=0;
   }
   render() {
     const { dashboardVoice, loading } = this.props;

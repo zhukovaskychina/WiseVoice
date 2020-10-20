@@ -33,12 +33,15 @@ const Model: ModelType = {
         payload: response.list,
       });
     },
-    *uploadWav({ payload }, { call, put }) {
+    *uploadWav({ payload,callback }, { call, put }) {
       const response = yield call(updateWavFile,payload);
       yield put({
         type: 'saveTags',
         payload: response.list,
       });
+      if(callback){
+        callback(response);
+      }
     },
   },
 
