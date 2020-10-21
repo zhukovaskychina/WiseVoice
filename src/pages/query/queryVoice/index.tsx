@@ -1,8 +1,7 @@
 import { Card, Col,message, Row, Input,notification } from 'antd';
 import {connect, Dispatch} from 'umi';
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 
-//import Recorder from '@/components/Recorder';
 // @ts-ignore
 import Recorder from 'recorderjs';
 import { GridContent } from '@ant-design/pro-layout';
@@ -122,18 +121,14 @@ class Monitor extends Component<VoiceMonitorProps> {
     that.recorder && that.recorder.exportWAV(function(blob: any) {
       console.log(blob);
       var stringFile=new Date().toISOString() + '.wav';
+      console.log("生成录音文件"+stringFile);
       var fileBlob=that.blobToFile(blob,stringFile);
 
       console.log(fileBlob);
       that.upload(fileBlob);
     });
 
-    let blobFile=new Blob();
-    var stringFile=new Date().toISOString() + '.wav';
-    var fileBlob=that.blobToFile(blobFile,stringFile);
 
-    console.log(fileBlob);
-    that.upload(fileBlob);
   }
 
 
@@ -165,7 +160,7 @@ class Monitor extends Component<VoiceMonitorProps> {
               that.socket.send(response.data);
 
           }else{
-            alert(response.resultMesg);
+            message.error(response.resultMesg);
           }
           console.log(response);
         }
@@ -204,7 +199,7 @@ class Monitor extends Component<VoiceMonitorProps> {
     this.globalValue=-1;
     let that=this;
 
-    that.socket = new WebSocket("wss://localhost:9000/websocket" );
+    that.socket = new WebSocket("wss://47.101.40.150:9000/websocket" );
 
     that.isEven=0;
 
