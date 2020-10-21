@@ -1,4 +1,4 @@
-import { Card, Col, Row, Input,notification } from 'antd';
+import { Card, Col,message, Row, Input,notification } from 'antd';
 import {connect, Dispatch} from 'umi';
 import React, { Component, useEffect } from 'react';
 
@@ -40,45 +40,7 @@ class Monitor extends Component<VoiceMonitorProps> {
     };
     this.socket = null;
   };
-  componentDidMount() {
-    // const { dispatch } = this.props;
-    // dispatch({
-    //   type: 'dashboardVoice/fetchTags',
-    // });
 
-    let self = this;
-
-    self.socket.on('voiceSuccess', function(data) {
-      self.setState({
-        textSearchValue: data.data.Result,
-      });
-    });
-
-    self.socket.on('voiceFail', function() {
-      self.setState({
-        textSearchValue: "识别失败"
-      });
-    });
-
-    self.socket.onopen = function()
-    {
-      // Web Socket 已连接上，使用 send() 方法发送数据
-      //ws.send("发送数据");
-      alert("数据发送中...");
-    };
-
-    self.socket.onmessage = function (evt)
-    {
-      var received_msg = evt.data;
-      alert("数据已接收...");
-    };
-
-    self.socket.onclose = function()
-    {
-      // 关闭 websocket
-      alert("连接已关闭...");
-    };
-  };
 
   componentWillMount() {
 
@@ -242,10 +204,41 @@ class Monitor extends Component<VoiceMonitorProps> {
     this.globalValue=-1;
     let that=this;
 
-
     that.socket = new WebSocket("wss://localhost:9000/websocket" );
 
     that.isEven=0;
+
+    let self = that;
+
+
+    self.socket.onopen = function()
+    {
+      console.log("建立链接");
+    };
+
+    self.socket.onmessage = function (evt)
+    {
+      var received_msg = evt.data;
+      console.log(evt.data);
+      let responseData=JSON.parse(evt.data);
+
+      let eventName=responseData.eventName;
+      let rsData=responseData.data;
+
+      if(eventName==="voiceFailure"){
+        message.error(rsData.resultMesg);
+      }
+      if(eventName==="voiceSuccess"){
+        message.info(rsData.data);
+      }
+
+    };
+
+    self.socket.onclose = function()
+    {
+      // 关闭 websocket
+      //   alert("连接已关闭...");
+    };
   }
   render() {
     const { dashboardVoice, loading } = this.props;
