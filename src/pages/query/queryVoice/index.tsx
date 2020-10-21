@@ -25,6 +25,7 @@ const suffix = (
   />
 );
 
+
 class Monitor extends Component<VoiceMonitorProps> {
   recorder: any;
   timer:any;
