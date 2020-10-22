@@ -135,12 +135,10 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
     let that = this;
     that.recorder &&
       that.recorder.exportWAV(function (blob: any) {
-        console.log(blob);
         var stringFile = new Date().toISOString() + '.wav';
         console.log('生成录音文件' + stringFile);
         var fileBlob = that.blobToFile(blob, stringFile);
 
-        console.log(fileBlob);
         that.upload(fileBlob);
       });
   };
@@ -186,15 +184,7 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
       type: 'dashboardVoice/getChartData',
       payload: context,
       callback: (response) => {
-        console.log(182, response);
         this.setState({ chartData: response, showChart: true });
-
-        /* if (resultCode === '000000') {
-          //socket
-          console.log(173, this.state.showChart);
-        } else {
-          message.error(response.resultMesg);
-        }*/
       },
     });
   };
@@ -244,7 +234,7 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
     };
 
     self.socket.onmessage = function (evt) {
-      var received_msg = evt.data;
+      // var received_msg = evt.data;
       console.log(evt.data);
       let responseData = JSON.parse(evt.data);
 
@@ -253,24 +243,30 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
 
       if (eventName === 'voiceFailure') {
         message.error(rsData.resultMesg);
+        message.error('语音识别失败');
       }
       if (eventName === 'voiceSuccess') {
         message.info(rsData.data);
+
+        console.log(rsData.data);
+        let context = { text: rsData.data.statusStr };
+        //      let context = { text: '中国和美国疫情趋势' };
+        // 文字
+        // let context = {'text': "上海疫情"}
+        // 图片
+        // let context = {'text': "上海疫情趋势"}
+
+        this.getChartData(context);
+
+        // 跳转图表展示
+        this.setState({ showChart: true });
       }
+      self.socket.onclose = function () {
+        // 关闭 websocket
+        //   alert("连接已关闭...");
+      };
+      // 折线
     };
-
-    self.socket.onclose = function () {
-      // 关闭 websocket
-      //   alert("连接已关闭...");
-    };
-    // 折线
-    let context = { text: '中国和美国疫情趋势' };
-    // 文字
-    // let context = {'text': "上海疫情"}
-    // 图片
-    // let context = {'text': "上海疫情趋势"}
-
-    this.getChartData(context);
   }
 
   render() {
@@ -290,7 +286,6 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
         </Chart>
       );
     };
-    console.log(268, chartData);
     return (
       <GridContent>
         <React.Fragment>
