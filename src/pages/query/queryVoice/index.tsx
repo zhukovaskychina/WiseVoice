@@ -368,6 +368,35 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
               ) : (
                 <div>出错了哦</div>
               )}
+
+              <div
+                style={{
+                  position: 'fixed',
+                  bottom: '30px',
+                  backgroundImage: `url(${voiceButtonWhite})`,
+                  backgroundSize: 'cover',
+                  width: '20vw',
+                  height: '20vw',
+                  marginLeft: '38vw',
+                }}
+              >
+                <Button
+                  shape="circle"
+                  onClick={() => {
+                    this.onSearch();
+                  }}
+                  type="dashed"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    color: 'transparent',
+                    backgroundColor: 'transparent',
+                    border: 'null',
+                  }}
+                >
+                  T
+                </Button>
+              </div>
             </div>
           ) : (
             <div style={contentStyle}>
@@ -379,9 +408,9 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
                       bottom: '30px',
                       backgroundImage: `url(${voiceButtonWhite})`,
                       backgroundSize: 'cover',
-                      width: '25vw',
-                      height: '25vw',
-                      marginLeft: '37vw',
+                      width: '20vw',
+                      height: '20vw',
+                      marginLeft: '38vw',
                     }}
                   >
                     <Button
