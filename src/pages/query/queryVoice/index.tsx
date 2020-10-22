@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Index from '../../../assets/index.png';
 import voiceButtonWhite from '../../../assets/voiceButtonWhite.png';
 import { G2, Chart, Tooltip, Interval, Line, Point } from 'bizcharts';
+import { CloseOutlined } from '@ant-design/icons';
 
 // @ts-ignore
 import Recorder from 'recorderjs';
@@ -52,6 +53,10 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
   }
 
   componentWillMount() {}
+
+  checkoutStatus = () => {
+    this.setState({ showChart: false });
+  };
 
   onSearch = () => {
     let that = this;
@@ -291,7 +296,17 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
         <React.Fragment>
           {this.state.showChart ? (
             <div>
-              <CloseCircleOutlined />
+              <Button
+                type="primary"
+                icon={<CloseOutlined />}
+                size={'large'}
+                shape="circle"
+                style={{ float: 'right', zIndex: 100 }}
+                onClick={() => {
+                  this.checkoutStatus();
+                }}
+              />
+
               {chartData.form == 'Data-list' ? (
                 <div>
                   {chartData.data['Display-form'] == 0 ? (
