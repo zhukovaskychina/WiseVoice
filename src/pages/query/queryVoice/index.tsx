@@ -263,7 +263,7 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
         message.info(rsData.data);
 
         console.log('rsData.data', rsData.data);
-        let context = { text: rsData.data.data.Result };
+        let context = { text: rsData.data.result };
         //      let context = { text: '中国和美国疫情趋势' };
         // 文字
         // let context = {'text': "上海疫情"}
