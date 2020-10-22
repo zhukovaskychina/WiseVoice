@@ -112,7 +112,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   );
   const { formatMessage } = useIntl();
   return (
-    <>
+    <div>
       <ProLayout
         logo={logo}
         formatMessage={formatMessage}
@@ -165,7 +165,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
           })
         }
       />*/}
-    </>
+    </div>
   );
 };
 

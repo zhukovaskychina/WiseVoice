@@ -90,7 +90,7 @@ class Analysis extends Component<AnalysisProps, AnalysisState> {
       offlineData,
       offlineChartData,
     } = dashboardAndanalysis;
-
+    console.log(93, offlineData, offlineChartData);
     const activeKey = currentTabKey || (offlineData[0] && offlineData[0].name);
     return (
       <GridContent>
