@@ -3,6 +3,7 @@ import { connect, Dispatch } from 'umi';
 import React, { Component } from 'react';
 import Index from '../../../assets/index.png';
 import voiceButtonWhite from '../../../assets/voiceButtonWhite.png';
+import bg from '../../../assets/bg.png';
 import { G2, Chart, Tooltip, Interval, Line, Point } from 'bizcharts';
 import { CloseOutlined } from '@ant-design/icons';
 
@@ -25,12 +26,20 @@ interface VoiceMonitorState {
   textSearchValue: string;
   chartData: any;
   showChart: boolean;
+  chat: string;
 }
 
 var contentStyle = {
   width: 'auto',
   height: '100vh',
   backgroundImage: `url(${Index})`,
+  backgroundSize: '100% 100%',
+};
+
+var resultStyle = {
+  width: 'auto',
+  height: '100vh',
+  backgroundImage: `url(${bg})`,
   backgroundSize: '100% 100%',
 };
 
@@ -48,6 +57,7 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
       textSearchValue: '',
       chartData: null,
       showChart: false,
+      chat: '',
     };
     this.socket = null;
   }
@@ -249,17 +259,17 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
         message.info(rsData.data);
 
         console.log(rsData.data);
-        let context = { text: rsData.data.statusStr };
+        let context = { text: rsData.data.Result };
         //      let context = { text: '中国和美国疫情趋势' };
         // 文字
         // let context = {'text': "上海疫情"}
         // 图片
         // let context = {'text': "上海疫情趋势"}
 
-        this.getChartData(context);
+        self.getChartData(context);
 
         // 跳转图表展示
-        this.setState({ showChart: true });
+        self.setState({ showChart: true, chat: rsData.data.statusStr });
       }
       self.socket.onclose = function () {
         // 关闭 websocket
@@ -271,7 +281,7 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
 
   render() {
     const { dashboardVoice, loading } = this.props;
-    const { isRecording, chartData } = this.state;
+    const { isRecording, chartData, chat } = this.state;
     const LineChart = function LineChart() {
       return (
         <Chart
@@ -290,8 +300,14 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
       <GridContent>
         <React.Fragment>
           {this.state.showChart ? (
-            <div>
-              <Button
+            <div style={resultStyle}>
+              <div style={{ padding: '10px', fontSize: '1.3rem' }}>
+                <p style={{ color: '#fff' }}>{chat}</p>
+                {chat && (
+                  <p style={{ textAlign: 'right', color: 'cadetblue' }}>小巴帮你查询到以下结果</p>
+                )}
+              </div>
+              {/*<Button
                 type="primary"
                 icon={<CloseOutlined />}
                 size={'large'}
@@ -300,7 +316,7 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
                 onClick={() => {
                   this.checkoutStatus();
                 }}
-              />
+              />*/}
 
               {chartData.form == 'Data-list' ? (
                 <div>
