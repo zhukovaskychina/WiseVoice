@@ -43,6 +43,10 @@ var resultStyle = {
   backgroundSize: '100% 100%',
 };
 
+var desc = {
+  marginBottom: '6px',
+  color: 'rgb(0 0 0 / 55%)',
+};
 class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
   recorder: any;
   timer: any;
@@ -404,9 +408,9 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
                 <Col xl={24} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
                   <div style={{ textAlign: 'center', marginTop: '25rem' }}>
                     <p style={{ fontWeight: 800 }}>你可以说：</p>
-                    <p style={{ marginBottom: '6px' }}>"查看全国新冠疫情新增确诊趋势"</p>
-                    <p style={{ marginBottom: '6px' }}>"查看中国和海外累计确诊对比趋势"</p>
-                    <p style={{ marginBottom: '6px' }}>"查看上海疫情累计数据和新增数据"</p>
+                    <p style={desc}>"查看全国新冠疫情新增确诊趋势"</p>
+                    <p style={desc}>"查看中国和海外累计确诊对比趋势"</p>
+                    <p style={desc}>"查看上海疫情累计数据和新增数据"</p>
                   </div>
                   <div
                     style={{
