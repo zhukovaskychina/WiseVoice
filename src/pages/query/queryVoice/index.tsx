@@ -258,14 +258,14 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
       if (eventName === 'voiceSuccess') {
         message.info(rsData.data);
 
-        console.log(rsData.data);
-        let context = { text: rsData.data.Result };
+        console.log('rsData.data', rsData.data);
+        let context = { text: rsData.data.data.Result };
         //      let context = { text: '中国和美国疫情趋势' };
         // 文字
         // let context = {'text': "上海疫情"}
         // 图片
         // let context = {'text': "上海疫情趋势"}
-
+        console.log('voiceSuccess', context);
         self.getChartData(context);
 
         // 跳转图表展示
@@ -318,7 +318,7 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
                 }}
               />*/}
 
-              {chartData.form == 'Data-list' ? (
+              {chartData && chartData.form == 'Data-list' ? (
                 <div>
                   {chartData.data['Display-form'] == 0 ? (
                     <div>
@@ -351,11 +351,11 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
                     </div>
                   )}
                 </div>
-              ) : chartData.form == 'Announcement' ? (
+              ) : chartData && chartData.form == 'Announcement' ? (
                 <div>
                   <Card>{chartData.data.content}</Card>
                 </div>
-              ) : chartData.form == 'Picture' ? (
+              ) : chartData && chartData.form == 'Picture' ? (
                 <div>
                   <Card>
                     <img
@@ -402,6 +402,12 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
             <div style={contentStyle}>
               <Row gutter={24}>
                 <Col xl={24} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
+                  <div style={{ textAlign: 'center', marginTop: '25rem' }}>
+                    <p style={{ fontWeight: 800 }}>你可以说：</p>
+                    <p style={{ marginBottom: '6px' }}>"查看全国新冠疫情新增确诊趋势"</p>
+                    <p style={{ marginBottom: '6px' }}>"查看中国和海外累计确诊对比趋势"</p>
+                    <p style={{ marginBottom: '6px' }}>"查看上海疫情累计数据和新增数据"</p>
+                  </div>
                   <div
                     style={{
                       position: 'fixed',
