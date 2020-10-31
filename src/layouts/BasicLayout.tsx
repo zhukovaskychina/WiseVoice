@@ -112,7 +112,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   );
   const { formatMessage } = useIntl();
   return (
-    <>
+    <div>
       <ProLayout
         logo={logo}
         formatMessage={formatMessage}
@@ -142,7 +142,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
             <span>{route.breadcrumbName}</span>
           );
         }}
-        footerRender={() => defaultFooterDom}
         menuDataRender={menuDataRender}
         rightContentRender={() => <RightContent />}
         postMenuData={(menuData) => {
@@ -156,7 +155,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
           {children}
         </Authorized>
       </ProLayout>
-      <SettingDrawer
+      {/*页面设置*/}
+      {/*<SettingDrawer
         settings={settings}
         onSettingChange={(config) =>
           dispatch({
@@ -164,8 +164,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
             payload: config,
           })
         }
-      />
-    </>
+      />*/}
+    </div>
   );
 };
 

@@ -53,7 +53,7 @@
     "not ie <= 10"
   ],
   "dependencies": {
-    "@ant-design/icons": "^4.0.0",
+    "@ant-design/icons": "^4.2.2",
     "@ant-design/pro-descriptions": "^1.0.19",
     "@ant-design/pro-form": "^1.0.2",
     "@ant-design/pro-layout": "^6.4.19",
@@ -87,10 +87,10 @@
     "react-fittext": "^1.0.0",
     "react-helmet-async": "^1.0.4",
     "react-router": "^4.3.1",
+    "recorderjs": "1.0.1",
     "umi": "^3.2.14",
     "umi-request": "^1.0.8",
-    "use-merge-value": "^1.0.1",
-    "recorderjs":"1.0.1"
+    "use-merge-value": "^1.0.1"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^1.0.18",

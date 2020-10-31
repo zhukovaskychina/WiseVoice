@@ -1,7 +1,7 @@
 import { Effect, Reducer } from 'umi';
 
 import { TagType } from './data.d';
-import { queryTags ,updateWavFile} from './service';
+import { queryTags, updateWavFile, getChartData } from './service';
 
 export interface StateType {
   tags: TagType[];
@@ -33,13 +33,24 @@ const Model: ModelType = {
         payload: response.list,
       });
     },
-    *uploadWav({ payload,callback }, { call, put }) {
-      const response = yield call(updateWavFile,payload);
+    *uploadWav({ payload, callback }, { call, put }) {
+      const response = yield call(updateWavFile, payload);
       yield put({
         type: 'saveTags',
         payload: response.list,
       });
-      if(callback){
+      if (callback) {
+        callback(response);
+      }
+    },
+
+    *getChartData({ payload, callback }, { call, put }) {
+      const response = yield call(getChartData, payload);
+      yield put({
+        type: 'saveTags',
+        payload: response.list,
+      }); // redux
+      if (callback) {
         callback(response);
       }
     },
