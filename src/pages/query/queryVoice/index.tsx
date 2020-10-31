@@ -237,7 +237,7 @@ class Monitor extends Component<VoiceMonitorProps, VoiceMonitorState> {
     this.globalValue = -1;
     let that = this;
 
-    that.socket = new WebSocket('wss://47.101.40.150:9000/websocket');
+    that.socket = new WebSocket(' wss://dbox.design/websocket');
 
     that.isEven = 0;
 
